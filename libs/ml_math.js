@@ -55,6 +55,7 @@ var inverse = (x) => {
             var temp = [];
             for (var j = 0; j < x.length; j++){
                 var minorTemp = clone(x);
+                //splice(x,1) removes element at index x from the array
                 minorTemp.splice(i, 1);
                 for (var k = 0; k < minorTemp.length; k++){
                     minorTemp[k].splice(j, 1);
