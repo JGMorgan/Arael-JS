@@ -85,7 +85,7 @@ class NeuralNetwork{
                 out.push(inner);
             }
             return out;
-        }
+        };
         var activate = (Z) => Z.map((x) => x.map((y) => this.activation(y)));
         var flip = (arr) => {
             var out = [];
