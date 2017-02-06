@@ -49,15 +49,15 @@ class NeuralNetwork{
     set weights(weights){
         this.Weights = weights;
     }
-
+    
+    /**
+     * @param X is the input vector
+     * returns the output of the neural network
+     */
     predict(X){
         this.Z = [];
         var out = mlmath.clone(X);
-        for (var i = 0; i < this.numHiddenLayers + 1; i++){/*
-            console.log("OUT");
-            console.log(out);
-            console.log("WEIGHTS");
-            console.log(this.Weights[i]);*/
+        for (var i = 0; i < this.numHiddenLayers + 1; i++){
             out = mlmath.dot(mlmath.clone(out), this.Weights[i]);
             this.Z.push(mlmath.clone(out));
             out = out.map((x) => x.map((y) => this.activation(y)));
@@ -65,6 +65,11 @@ class NeuralNetwork{
         return out;
     }
 
+    /**
+     * @param X the input vector
+     * @param Y a vector containing the expected value for each X
+     * returns the total error of the neural network
+     */
     cost(X, Y){
         var errorSum = 0;
         for (var i = 0; i < Y.length; i++){
@@ -74,6 +79,11 @@ class NeuralNetwork{
         return errorSum / 2;
     }
 
+    /**
+     * @param X the input vector
+     * @param Y a vector containing the expected value for each X
+     * returns the derivative of the cost function for each layer at it's current weight
+     */
     costPrime(X, Y){
         var clone = (x) => {
             var out = [];
@@ -138,6 +148,7 @@ class NeuralNetwork{
     }
 }
 
+// this is all here for testing purposes
 var nn = new NeuralNetwork(3, 7, [3,3,3,3,3,3,3]);
 console.log("prediction   " + nn.predict([[5,2,3]]));
 console.log(nn.cost([[[5,2,3]],[[5,2,3]],[[5,2,3]],[[5,2,3]]], [[.9],[.9],[.9],[.9]]));
